@@ -1,0 +1,323 @@
+/* --- Google Font Imports --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* --- General Body & Font Styles --- */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0D0D0D;
+  color: #EAEAEA;
+  overflow: hidden; /* Prevent scrollbars from animation */
+  position: relative;
+}
+
+/* --- Animated Background --- */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image:
+        linear-gradient(to right, rgba(30, 30, 30, 0.9) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 30, 30, 0.9) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: moveBlocks 200s linear infinite;
+    z-index: -1; /* Place it behind all content */
+}
+
+@keyframes moveBlocks {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 2000px; }
+}
+
+
+/* --- Main Layout & Header --- */
+.app-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem 1rem 2rem 1rem;
+  position: relative; /* Ensure content stays above the background */
+  z-index: 1;
+  height: 100vh;
+  overflow-y: auto; /* Allow scrolling for content */
+}
+
+.header-content {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-top: 1rem;
+}
+
+.header-content h1 {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.header-content p {
+  font-size: 1.125rem;
+  color: #A0A0A0;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+/* --- Navbar --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #2A2A2A;
+}
+.nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+.nav-links {
+    display: none;
+}
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        gap: 1.5rem;
+    }
+}
+.nav-link {
+    color: #A0A0A0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+.nav-link:hover {
+    color: #FFF;
+}
+.nav-actions {
+    display: flex;
+    gap: 1rem;
+}
+.nav-button-secondary {
+    background: none;
+    border: 1px solid #444;
+    color: #A0A0A0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.nav-button-secondary:hover {
+    border-color: #FFF;
+    color: #FFF;
+}
+.nav-button-primary {
+    background-color: #32CD32;
+    color: #0D0D0D;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s;
+}
+.nav-button-primary:hover {
+    background-color: #3EFF3E;
+}
+
+/* --- Upload Card --- */
+.upload-card {
+    background-color: #1A1A1A;
+    border: 1px solid transparent; /* Make border transparent to be filled by gradient */
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(229, 0, 122, 0.1);
+    background-clip: padding-box; /* Important for border gradient */
+}
+
+.upload-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -1px; /* Adjust to fill the border area */
+    border-radius: inherit; /* Match the parent's border radius */
+    background: linear-gradient(to right, #C7006E, #58A6FF);
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.3; }
+}
+
+.upload-zone {
+  border: 2px dashed #444;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+  background-color: #1A1A1A; /* Match card background */
+  position: relative;
+  z-index: 1;
+}
+.upload-zone:hover {
+    border-color: #C7006E;
+    background-color: #1F2937;
+    box-shadow: 0 0 20px rgba(199, 0, 110, 0.3);
+}
+.upload-zone.drag-over { border-color: #C7006E; border-style: solid; }
+.upload-zone-icon { width: 3rem; height: 3rem; margin: 0 auto 1rem auto; color: #666; }
+.upload-text { color: #CCC; font-weight: 500; }
+.upload-hint { font-size: 0.875rem; color: #888; margin-top: 0.25rem; }
+.hidden-input { display: none; }
+
+/* --- Results Grid & Section --- */
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    animation: fadeIn 0.5s ease-in-out;
+}
+@media (min-width: 1024px) { .results-grid { grid-template-columns: 45% 1fr; } }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFF;
+    margin: 0;
+}
+.share-button {
+    background: none;
+    border: 1px solid #444;
+    color: #A0A0A0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: not-allowed;
+    font-weight: 500;
+    opacity: 0.5;
+}
+
+/* --- Feedback Column --- */
+.feedback-card {
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+.score-breakdown { margin-bottom: 1.5rem; }
+.score-bar-container { margin-bottom: 1rem; }
+.score-bar-labels { display: flex; justify-content: space-between; margin-bottom: 0.25rem; font-size: 0.875rem; }
+.score-bar-label { color: #A0A0A0; }
+.score-bar-value { color: #FFF; font-weight: 500; }
+.score-bar-background { height: 8px; background-color: #333; border-radius: 4px; overflow: hidden; }
+.score-bar-foreground { height: 100%; background-image: linear-gradient(to right, #58A6FF, #32CD32); border-radius: 4px; }
+
+.summary-box {
+  background-color: #1F2937; color: #DBEAFE; padding: 1rem; border-radius: 0.75rem;
+  margin-bottom: 1.5rem; font-weight: 500; line-height: 1.6; border: 1px solid #374151;
+}
+.feedback-group { margin-bottom: 1.5rem; }
+.feedback-group:last-child { margin-bottom: 0; }
+.feedback-title {
+  font-size: 1.125rem; font-weight: 600; color: #EAEAEA; margin-bottom: 0.75rem;
+  display: flex; align-items: center;
+}
+.icon-feedback { width: 1.25rem; height: 1.25rem; margin-right: 0.75rem; }
+.icon-success { color: #4ADE80; }
+.icon-danger { color: #F87171; }
+.icon-warning { color: #FBBF24; }
+
+.improvements-list {
+  list-style-type: none; padding-left: 0; display: flex; flex-direction: column;
+  gap: 0.75rem; color: #A0A0A0;
+}
+.improvements-list li { position: relative; padding-left: 1.5rem; }
+.improvements-list-danger li::before { content: '→'; position: absolute; left: 0; color: #F87171; font-weight: bold; }
+.improvements-list-warning li::before { content: '→'; position: absolute; left: 0; color: #FBBF24; font-weight: bold; }
+.improvements-list li::before { content: '✓'; position: absolute; left: 0; color: #4ADE80; font-weight: bold; }
+
+/* --- Jobs Column & Job Card --- */
+.jobs-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.job-card {
+    background-color: #1A1A1A; border: 1px solid #2A2A2A; border-radius: 1rem;
+    padding: 1.5rem; transition: border-color 0.3s, transform 0.3s;
+}
+.job-card:hover { border-color: #58A6FF; transform: translateY(-4px); }
+.job-card-header { display: flex; align-items: center; margin-bottom: 1rem; }
+.job-card-logo {
+    width: 48px; height: 48px; border-radius: 0.5rem; background-color: #2A2A2A;
+    color: #FFF; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: 600; margin-right: 1rem;
+}
+.job-card-title-group { flex-grow: 1; }
+.job-card-title {
+    font-family: 'Space Mono', monospace; font-size: 1.125rem; font-weight: 700;
+    color: #FFF; margin: 0;
+}
+.job-card-company { font-size: 1rem; color: #A0A0A0; margin: 0; }
+.job-card-location { font-size: 0.875rem; color: #888; margin-bottom: 1rem; }
+.job-card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.job-card-tag {
+    font-family: 'Space Mono', monospace; background-color: transparent; color: #888;
+    font-size: 0.75rem; font-weight: 400; padding: 0.25rem 0.75rem;
+    border-radius: 9999px; border: 1px solid #444;
+}
+
+/* --- Buttons, Loader, Error --- */
+.button {
+  width: 100%; background-color: #C7006E; color: #ffffff;
+  font-family: 'Space Mono', monospace; font-weight: 700; font-size: 1rem;
+  padding: 1rem; border-radius: 0.5rem; border: none; cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+.button:hover { background-color: #E0007B; transform: translateY(-2px); }
+.button:disabled {
+  background-color: #333; color: #666; cursor: not-allowed; transform: translateY(0);
+}
+.button-secondary {
+    width: 100%; background: none; border: 1px solid #444; color: #A0A0A0;
+    padding: 0.75rem 1rem; border-radius: 0.5rem; cursor: not-allowed;
+    font-weight: 500; opacity: 0.5; margin-top: 1.5rem;
+}
+
+.loader-container { padding: 4rem 0; text-align: center; }
+.loader {
+  width: 4rem; height: 4rem; border: 5px solid #333; border-top-color: #C7006E;
+  border-radius: 50%; animation: spin 1s ease-in-out infinite; margin: 0 auto;
+}
+.loader-text { margin-top: 1rem; color: #A0A0A0; font-weight: 600; }
+.error-box {
+    background-color: #4C1D1D; border: 1px solid #7F1D1D; color: #F87171;
+    padding: 1rem; border-radius: 0.5rem; margin: 2rem 0;
+}
+.error-title { font-weight: 700; }
+
