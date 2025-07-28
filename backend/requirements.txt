@@ -1,0 +1,5 @@
+Flask
+Flask-Cors
+google-generativeai
+python-docx
+PyPDF2
