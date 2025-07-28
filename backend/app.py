@@ -7,7 +7,7 @@ import os
 import json
 
 # --- Configuration ---
-FALLBACK_API_KEY = "AIzaSyCrX8DPBAy0PbkvO6x7WXfW582CtwRYXRw"
+FALLBACK_API_KEY = "API_KEY_HERE"
 API_KEY = os.getenv("GOOGLE_API_KEY", FALLBACK_API_KEY)
 MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-1.5-flash")
 
